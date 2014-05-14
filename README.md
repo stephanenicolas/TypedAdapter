@@ -8,6 +8,8 @@ This technique is an alternative to the view holder design pattern. It has the f
 * allows to avoid the `setTag` ugly hack of the view holders ;
 * gives the opportunity to create full android custom views, elegant and complete, that can even be reused as XML layout elements. 
 
+[![Build Status on Travis:](https://travis-ci.org/stephanenicolas/TypedAdapter.svg?branch=master)](https://travis-ci.org/stephanenicolas/TypedAdapter)
+
 Usage
 -----
 
