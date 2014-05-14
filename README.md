@@ -12,7 +12,16 @@ This technique is an alternative to the view holder design pattern. It has the f
 
 Usage
 -----
+Let's say you got a POJO class :
 
+```java
+public class Pojo {
+   public String name;
+}
+
+To display a list of Pojo into a `ListView` using Typed Adapter, follow the 2 following steps.
+
+```
 Define your adapter using both the POJO type and your custom view type : 
 
 ```java
