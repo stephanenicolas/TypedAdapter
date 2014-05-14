@@ -1,0 +1,34 @@
+#Thanks to https://raw.github.com/embarkmobile/android-maven-example/master/.travis.yml
+
+branches:
+  only:
+    - master
+
+language: java
+jdk: oraclejdk7
+env:
+  matrix:
+    # android-16 is always included
+    - ANDROID_SDKS=android-8            ANDROID_TARGET=android-8   ANDROID_ABI=armeabi
+    - ANDROID_SDKS=android-19,sysimg-19 ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
+    
+before_install:
+  # Install base Android SDK
+    - sudo apt-get update -qq
+    - sudo apt-get install -qq libstdc++6:i386 lib32z1
+    - export COMPONENTS=build-tools-19.0.1,android-19,$ANDROID_SDKS
+    - curl -L https://raw.github.com/octo-online/robospice/master/android-sdk-installer | bash /dev/stdin --install=$COMPONENTS
+    - source ~/.android-sdk-installer/env
+
+    # Create and start emulator
+    - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+    - emulator -avd test -no-skin -no-audio -no-window &
+
+# We will run findbugs and checkstyle in the script phase
+install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -Dfindbugs.skip=true -Dcheckstyle.skip=true -Dandroid.dex.optimize=false
+
+before_script:
+  - adb devices
+  - ./wait_for_emulator
+
+script: mvn install -Dandroid.device=test -Dmaven.javadoc.skip=true 
