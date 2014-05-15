@@ -5,4 +5,5 @@
           android:versionName="1.0">
     <uses-sdk android:minSdkVersion="3"
               android:targetSdkVersion="19"/>
+    <application android:icon="@null"/>
 </manifest>
